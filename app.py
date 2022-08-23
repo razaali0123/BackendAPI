@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import requests
 
 app = Flask(__name__)
@@ -24,5 +24,18 @@ def get_movie_names(num_pages):
 
 @app.route("/movies/recommendation", methods = ['POST'])
 def recommendations():
-    content = request.json()
-    return content
+    recommended = []
+    content = request.json
+    for id in content['ids']:
+        url = "https://api.themoviedb.org/3/movie/" + str(id) + "/recommendations?api_key=a19d7946ea240c2c92f7d5fb6813b3f6&language=en-US&page=1"
+        response_post = requests.get(url).json()
+        res_post = response_post["results"]
+        res_post = res_post[0]
+        recommended.append(res_post['title'])
+    return jsonify({"Recommend_movies": recommended})
+    return response_post
+
+
+
+
+    

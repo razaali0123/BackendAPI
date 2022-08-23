@@ -1,0 +1,6 @@
+POST http://127.0.0.1:5000/movies/recommendation
+Content-Type: application/json
+
+{
+    "ids": [766507, 616037, 507086]
+}
